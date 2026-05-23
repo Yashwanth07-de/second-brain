@@ -440,6 +440,7 @@ const App = (() => {
 
     // Mobile menu toggle
     document.getElementById('mobile-menu-toggle')?.addEventListener('click', toggleSidebar);
+    document.getElementById('mobile-fab-menu')?.addEventListener('click', toggleSidebar);
 
     // Close mobile sidebar when tapping outside it
     document.addEventListener('click', e => {

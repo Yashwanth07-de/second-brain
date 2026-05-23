@@ -176,6 +176,7 @@
 }
 
 .mobile-menu-btn { display: none; }
+.mobile-fab-menu { display: none; }
 
 /* ── Topbar ── */
 #topbar {
@@ -386,6 +387,14 @@ body {
     flex-wrap: nowrap;
   }
   .mobile-menu-btn { display: inline-flex; }
+  .mobile-fab-menu {
+    display: inline-flex;
+    position: fixed;
+    right: 14px;
+    bottom: 14px;
+    z-index: 300;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+  }
   .topbar-date { display: none; }
   .topbar-title { font-size: 16px; }
   .search-wrap {
@@ -399,4 +408,6 @@ body {
     padding-left: 10px;
     padding-right: 10px;
   }
+
+  body.sidebar-open .mobile-fab-menu { display: none; }
 }

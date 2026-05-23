@@ -1,4 +1,4 @@
-const CACHE_NAME = 'second-brain-v1';
+const CACHE_NAME = 'second-brain-v2';
 const ASSETS = [
   '/',
   '/index.html',
@@ -27,6 +27,26 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+
+  const url = new URL(event.request.url);
+  const isNavigation = event.request.mode === 'navigate';
+
+  // Always try network first for HTML so UI updates arrive immediately.
+  if (isNavigation || url.pathname === '/' || url.pathname.endsWith('.html')) {
+    event.respondWith(
+      fetch(event.request)
+        .then(resp => {
+          if (resp && resp.status === 200) {
+            const clone = resp.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          }
+          return resp;
+        })
+        .catch(() => caches.match(event.request).then(cached => cached || caches.match('/index.html')))
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then(cached => {
       const network = fetch(event.request).then(resp => {
