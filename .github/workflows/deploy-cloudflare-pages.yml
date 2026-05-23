@@ -1,0 +1,30 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    name: Publish to Cloudflare Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node (optional)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Wrangler
+        run: |
+          npm install -g wrangler@3
+
+      - name: Publish site to Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          # Publish current repo root as a Pages site. Set --project-name to your Pages project name in Cloudflare.
+          wrangler pages publish . --project-name=second-brain --branch=main --account-id=$CLOUDFLARE_ACCOUNT_ID
