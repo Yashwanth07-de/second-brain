@@ -359,4 +359,9 @@ body {
   #sidebar { position: fixed; left: -100%; z-index: 200; transition: left var(--t-normal); }
   #sidebar.open { left: 0; }
   #content { padding: 16px; }
+  /* Allow page-level scrolling on small screens and make topbar inputs responsive */
+  body { overflow: auto; }
+  #app { min-height: 100vh; height: auto; }
+  .search-wrap { max-width: 160px; }
+  .search-wrap input { width: 100%; }
 }

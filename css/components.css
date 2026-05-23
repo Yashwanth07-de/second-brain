@@ -88,6 +88,12 @@
   outline: none;
   transition: border-color var(--t-fast);
 }
+
+@media (max-width: 640px) {
+  /* Prevent iOS zoom on inputs by ensuring 16px font-size when needed */
+  .form-input, .form-textarea, .search-wrap input { font-size: 16px; }
+  .btn { padding: 8px 12px; }
+}
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus { border-color: var(--border-focus); }

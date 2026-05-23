@@ -78,7 +78,7 @@
 
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { height: 100%; font-size: 14px; }
+html { height: 100%; font-size: 14px; -webkit-text-size-adjust: 100%; }
 body {
   height: 100%;
   background: var(--bg-base);
@@ -87,11 +87,12 @@ body {
   font-size: 14px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
   cursor: default;
 }
 button { font-family: var(--font-body); cursor: pointer; }
 input, select, textarea { font-family: var(--font-body); }
+/* Prevent iOS from auto-zooming small inputs */
+input, textarea, select { -webkit-text-size-adjust: 100%; }
 svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 a { color: var(--accent); text-decoration: none; }
 img { max-width: 100%; }
