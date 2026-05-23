@@ -33,10 +33,30 @@ const App = (() => {
   let currentSection = 'dashboard';
   let currentSession = null;
 
+  function isMobileView() {
+    return window.matchMedia('(max-width: 640px)').matches;
+  }
+
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar) return;
+    const isOpen = sidebar.classList.toggle('open');
+    document.body.classList.toggle('sidebar-open', isOpen);
+  }
+
+  function closeSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar) return;
+    sidebar.classList.remove('open');
+    document.body.classList.remove('sidebar-open');
+  }
+
   /* ── Navigation ── */
   function navigate(section) {
     if (section === currentSection) return;
     currentSection = section;
+
+    if (isMobileView()) closeSidebar();
 
     // Update sidebar
     document.querySelectorAll('.nav-item').forEach(item => {
@@ -416,6 +436,24 @@ const App = (() => {
     // Nav item click listeners
     document.querySelectorAll('.nav-item[data-section]').forEach(item => {
       item.addEventListener('click', () => navigate(item.dataset.section));
+    });
+
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-toggle')?.addEventListener('click', toggleSidebar);
+
+    // Close mobile sidebar when tapping outside it
+    document.addEventListener('click', e => {
+      if (!isMobileView()) return;
+      const sidebar = document.getElementById('sidebar');
+      if (!sidebar?.classList.contains('open')) return;
+      const clickedInsideSidebar = sidebar.contains(e.target);
+      const clickedMenuButton = document.getElementById('mobile-menu-toggle')?.contains(e.target);
+      if (!clickedInsideSidebar && !clickedMenuButton) closeSidebar();
+    });
+
+    // Ensure sidebar state resets when returning to larger screens
+    window.addEventListener('resize', () => {
+      if (!isMobileView()) closeSidebar();
     });
 
     // Theme toggle
