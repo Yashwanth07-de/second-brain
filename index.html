@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Second Brain</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- App Shell -->
+  <div id="app">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-glyph">SB</div>
+        <div class="logo-text">
+          <span class="logo-name">Second Brain</span>
+          <span class="logo-tagline">your life, organised</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-group-label">Overview</div>
+        <button class="nav-item active" data-section="dashboard">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Dashboard</span>
+        </button>
+
+        <div class="nav-group-label">Personal</div>
+        <button class="nav-item" data-section="notes">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span>Notes</span>
+          <span class="nav-badge" id="badge-notes">0</span>
+        </button>
+        <button class="nav-item" data-section="health">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <span>Health</span>
+          <span class="nav-badge" id="badge-health">0</span>
+        </button>
+
+        <div class="nav-group-label">Money</div>
+        <button class="nav-item" data-section="finance">
+          <svg class="nav-icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Finance</span>
+        </button>
+        <button class="nav-item" data-section="savings">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+          <span>Savings</span>
+        </button>
+        <button class="nav-item" data-section="bills">
+          <svg class="nav-icon" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          <span>Bills</span>
+          <span class="nav-badge urgent" id="badge-bills">0</span>
+        </button>
+        <button class="nav-item" data-section="subscriptions">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          <span>Subscriptions</span>
+        </button>
+        <button class="nav-item" data-section="creditcards">
+          <svg class="nav-icon" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          <span>Credit Cards</span>
+          <span class="nav-badge urgent" id="badge-cc">0</span>
+        </button>
+
+        <div class="nav-group-label">Account</div>
+        <button class="nav-item" data-section="settings">
+          <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1 .6 1.65 1.65 0 0 0-.33 1.82v.08a2 2 0 1 1-3.34 0v-.08A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1-.6 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-.6-1 1.65 1.65 0 0 0-1.82-.33h-.08a2 2 0 1 1 0-3.34h.08A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0 .6-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-.6 1.65 1.65 0 0 0 .33-1.82v-.08a2 2 0 1 1 3.34 0v.08A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1 .6 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 .6 1 1.65 1.65 0 0 0 1.82.33h.08a2 2 0 1 1 0 3.34h-.08a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-.6 1z"/></svg>
+          <span>Settings</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="theme-toggle" id="theme-toggle" title="Toggle theme">
+          <svg id="theme-icon-dark" viewBox="0 0 24 24" width="16" height="16"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg id="theme-icon-light" viewBox="0 0 24 24" width="16" height="16" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <span>Toggle theme</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div id="main">
+
+      <!-- TOPBAR -->
+      <header id="topbar">
+        <div class="topbar-left">
+          <h1 class="topbar-title" id="topbar-title">Dashboard</h1>
+          <span class="topbar-date" id="topbar-date"></span>
+        </div>
+        <div class="topbar-right">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" width="14" height="14"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="global-search" placeholder="Search everything… (Ctrl+K)" />
+          </div>
+          <button class="btn btn-ghost" id="auth-btn" onclick="App.handleAuthButton()">Login</button>
+          <button class="btn btn-primary" id="topbar-settings-btn" onclick="App.navigate('settings')">
+            <svg viewBox="0 0 24 24" width="13" height="13"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1 .6 1.65 1.65 0 0 0-.33 1.82v.08a2 2 0 1 1-3.34 0v-.08A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1-.6 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-.6-1 1.65 1.65 0 0 0-1.82-.33h-.08a2 2 0 1 1 0-3.34h.08A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0 .6-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-.6 1.65 1.65 0 0 0 .33-1.82v-.08a2 2 0 1 1 3.34 0v.08A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1 .6 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 .6 1 1.65 1.65 0 0 0 1.82.33h.08a2 2 0 1 1 0 3.34h-.08a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-.6 1z"/></svg>
+            Settings
+          </button>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <div id="content">
+
+        <!-- ═══════════════════════ DASHBOARD ═══════════════════════ -->
+        <section id="section-dashboard" class="section active">
+          <div class="glance-panel" id="glance-panel">
+            <div class="glance-top">
+              <div class="glance-label">
+                <span class="pin" title="This shows a quick summary from your notes, bills, health and savings.">ℹ️</span> Daily Glance
+              </div>
+              <button class="btn btn-ghost btn-sm" onclick="Glance.generate()">
+                <svg viewBox="0 0 24 24" width="13" height="13"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                Refresh
+              </button>
+            </div>
+            <div id="glance-output"></div>
+          </div>
+
+          <div class="dash-stats" id="dash-stats"></div>
+          <div class="dash-recent">
+            <div class="section-row-header">
+              <h3 class="section-row-title">Recent activity</h3>
+            </div>
+            <div id="dash-recent-list"></div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════ NOTES ═══════════════════════ -->
+        <section id="section-notes" class="section">
+          <div class="section-toolbar">
+            <div class="tag-pills" id="notes-filter-pills">
+              <button class="tag-pill active" data-filter="all">All</button>
+              <button class="tag-pill" data-filter="Work">Work</button>
+              <button class="tag-pill" data-filter="Ideas">Ideas</button>
+              <button class="tag-pill" data-filter="Personal">Personal</button>
+              <button class="tag-pill" data-filter="Learning">Learning</button>
+            </div>
+          </div>
+          <div class="notes-grid" id="notes-grid"></div>
+        </section>
+
+        <!-- ═══════════════════════ HEALTH ═══════════════════════ -->
+        <section id="section-health" class="section">
+          <div class="two-col">
+            <div>
+              <div class="section-row-header">
+                <h3 class="section-row-title">Appointments</h3>
+                <button class="btn btn-ghost btn-sm" onclick="Health.openAddAppointment()">+ Add</button>
+              </div>
+              <div id="appointments-list"></div>
+            </div>
+            <div>
+              <div class="section-row-header">
+                <h3 class="section-row-title">Medications</h3>
+                <button class="btn btn-ghost btn-sm" onclick="Health.openAddMed()">+ Add</button>
+              </div>
+              <div id="meds-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════ FINANCE ═══════════════════════ -->
+        <section id="section-finance" class="section">
+          <div class="finance-stats" id="finance-stats"></div>
+          <div class="two-col">
+            <div>
+              <div class="section-row-header">
+                <h3 class="section-row-title">Transactions</h3>
+                <button class="btn btn-ghost btn-sm" onclick="Finance.openAdd()">+ Add</button>
+              </div>
+              <div id="transactions-list"></div>
+            </div>
+            <div>
+              <div class="section-row-header">
+                <h3 class="section-row-title">By category</h3>
+              </div>
+              <div id="finance-categories"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════ SAVINGS ═══════════════════════ -->
+        <section id="section-savings" class="section">
+          <div class="section-row-header">
+            <h3 class="section-row-title">Savings goals</h3>
+            <button class="btn btn-ghost btn-sm" onclick="Savings.openAdd()">+ New goal</button>
+          </div>
+          <div class="savings-grid" id="savings-grid"></div>
+        </section>
+
+        <!-- ═══════════════════════ BILLS ═══════════════════════ -->
+        <section id="section-bills" class="section">
+          <div class="bills-stats" id="bills-stats"></div>
+          <div class="section-row-header">
+            <div class="tag-pills" id="bills-filter-pills">
+              <button class="tag-pill active" data-filter="all">All</button>
+              <button class="tag-pill" data-filter="unpaid">Unpaid</button>
+              <button class="tag-pill" data-filter="paid">Paid</button>
+              <button class="tag-pill" data-filter="overdue">Overdue</button>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="Bills.openAdd()">+ Add bill</button>
+          </div>
+          <div id="bills-list"></div>
+        </section>
+
+        <!-- ═══════════════════════ SUBSCRIPTIONS ═══════════════════════ -->
+        <section id="section-subscriptions" class="section">
+          <div class="subs-stats" id="subs-stats"></div>
+          <div class="section-row-header">
+            <h3 class="section-row-title">Active subscriptions</h3>
+            <button class="btn btn-ghost btn-sm" onclick="Subscriptions.openAdd()">+ Add</button>
+          </div>
+          <div class="subs-grid" id="subs-grid"></div>
+        </section>
+
+        <!-- ═══════════════════════ CREDIT CARDS ═══════════════════════ -->
+        <section id="section-creditcards" class="section">
+          <div class="section-row-header">
+            <h3 class="section-row-title">Your cards</h3>
+            <button class="btn btn-ghost btn-sm" onclick="CreditCards.openAdd()">+ Add card</button>
+          </div>
+          <div class="cc-grid" id="cc-grid"></div>
+          <div class="section-row-header" style="margin-top:2rem">
+            <h3 class="section-row-title">Upcoming payments</h3>
+          </div>
+          <div id="cc-payments-list"></div>
+        </section>
+
+        <!-- ═══════════════════════ SETTINGS ═══════════════════════ -->
+        <section id="section-settings" class="section">
+          <div class="settings-grid">
+            <div class="settings-card">
+              <div class="section-row-header"><h3 class="section-row-title">Profile</h3></div>
+              <div class="form-group">
+                <label class="form-label">Full name</label>
+                <input class="form-input" id="settings-full-name" placeholder="Your full name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Mobile number</label>
+                <input class="form-input" id="settings-mobile" type="tel" placeholder="+91 98765 43210" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <input class="form-input" id="settings-email" disabled />
+              </div>
+              <button class="btn btn-primary" onclick="App.saveProfile()">Save profile</button>
+            </div>
+
+            <div class="settings-card">
+              <div class="section-row-header"><h3 class="section-row-title">Security</h3></div>
+              <div class="form-group">
+                <label class="form-label">New password</label>
+                <input class="form-input" id="settings-password" type="password" placeholder="New password" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Confirm password</label>
+                <input class="form-input" id="settings-password-confirm" type="password" placeholder="Confirm password" />
+              </div>
+              <button class="btn btn-primary" onclick="App.changePassword()">Change password</button>
+              <div class="form-hint" style="margin-top:12px">Password changes are handled by Supabase Auth.</div>
+            </div>
+
+            <div class="settings-card">
+              <div class="section-row-header"><h3 class="section-row-title">Account status</h3></div>
+              <div id="settings-summary" class="settings-summary"></div>
+              <button class="btn btn-ghost" onclick="App.handleAuthButton()">Logout</button>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /content -->
+    </div><!-- /main -->
+  </div><!-- /app -->
+
+  <!-- ═══════════════════════ MODAL ═══════════════════════ -->
+  <div id="modal-overlay" class="modal-overlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-title">Add item</h2>
+        <button class="modal-close" onclick="App.closeModal()">
+          <svg viewBox="0 0 24 24" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer" id="modal-footer"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Scripts — load order matters -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/glance.js"></script>
+  <script src="js/notes.js"></script>
+  <script src="js/health.js"></script>
+  <script src="js/finance.js"></script>
+  <script src="js/modules.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
