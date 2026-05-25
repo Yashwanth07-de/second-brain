@@ -516,6 +516,28 @@ const CreditCards = (() => {
       </div>
       <div class="form-row">
         <div class="form-group">
+          <label class="form-label">Name on card</label>
+          <input class="form-input" id="cc-name" placeholder="Cardholder name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Card type</label>
+          <select class="form-select" id="cc-type">
+            <option>Credit</option><option>Debit</option><option>Prepaid</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Card number</label>
+          <input class="form-input" id="cc-number" maxlength="23" placeholder="xxxx xxxx xxxx xxxx" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Expiry</label>
+          <input class="form-input" id="cc-exp" type="month" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
           <label class="form-label">Last 4 digits</label>
           <input class="form-input" id="cc-last4" maxlength="4" placeholder="0000" />
         </div>
@@ -563,15 +585,20 @@ const CreditCards = (() => {
   }
 
   function save() {
-    const bankName   = document.getElementById('cc-bank')?.value.trim();
-    const network    = document.getElementById('cc-network')?.value;
-    const last4      = document.getElementById('cc-last4')?.value.trim();
-    const limit      = document.getElementById('cc-limit')?.value;
-    const used       = document.getElementById('cc-used')?.value || 0;
-    const minPayment = document.getElementById('cc-min')?.value || 0;
-    const dueDate    = document.getElementById('cc-due')?.value;
+    const bankName    = document.getElementById('cc-bank')?.value.trim();
+    const network     = document.getElementById('cc-network')?.value;
+    const nameOnCard  = document.getElementById('cc-name')?.value.trim() || '';
+    const cardType    = document.getElementById('cc-type')?.value || '';
+    const fullNumber  = (document.getElementById('cc-number')?.value || '').replace(/\s+/g, '');
+    const last4Input  = document.getElementById('cc-last4')?.value.trim();
+    const expDate     = document.getElementById('cc-exp')?.value || '';
+    const limit       = document.getElementById('cc-limit')?.value;
+    const used        = document.getElementById('cc-used')?.value || 0;
+    const minPayment  = document.getElementById('cc-min')?.value || 0;
+    const dueDate     = document.getElementById('cc-due')?.value;
     if (!bankName) { App.toast('Bank name required', 'error'); return; }
-    Storage.push(Storage.KEYS.cards, { id: genId(), bankName, network, last4, limit: Number(limit), used: Number(used), minPayment: Number(minPayment), dueDate });
+    const last4 = fullNumber ? (fullNumber.slice(-4)) : last4Input;
+    Storage.push(Storage.KEYS.cards, { id: genId(), bankName, network, cardType, nameOnCard, fullNumber: fullNumber || null, last4, expDate, limit: Number(limit), used: Number(used), minPayment: Number(minPayment), dueDate });
     Storage.logActivity(`💳 Card added: ${bankName} •••• ${last4}`, '#c8922a');
     App.toast('Card added');
     App.closeModal();
